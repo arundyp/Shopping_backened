@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
-public class categoryServiceImpl implements IcategoryService {
+public class CategoryService implements IcategoryService {
 	private CategoryRepository categoryRepo;
 
 	@Override

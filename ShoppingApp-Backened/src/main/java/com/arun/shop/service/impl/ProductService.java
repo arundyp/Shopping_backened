@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class productServiceImpl implements IproductService {
+public class ProductService implements IproductService {
 	@Autowired
 	private productRepository productRepository;
 
