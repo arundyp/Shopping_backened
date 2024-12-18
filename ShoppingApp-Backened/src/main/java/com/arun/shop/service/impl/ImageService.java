@@ -83,8 +83,8 @@ public class ImageService implements IimageService {
 	}
 
 	@Override
-	public void updateImage(MultipartFile file, long id) {
-		Image imag = this.imageRepo.findById(id)
+	public void updateImage(MultipartFile file, long image) {
+		Image imag = this.imageRepo.findById(image)
 				.orElseThrow(() -> new ResourceNotFoundException("Image is not present."));
 		try {
 			imag.setFileName(file.getOriginalFilename());

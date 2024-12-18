@@ -16,6 +16,6 @@ public interface IimageService {
 
 	void deleteImage(long id);
 
-	void updateImage(MultipartFile img, long id);
+	void updateImage(MultipartFile img, long image);
 
 }
