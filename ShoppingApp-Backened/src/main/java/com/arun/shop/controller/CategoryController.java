@@ -21,16 +21,23 @@ import lombok.RequiredArgsConstructor;
 public class CategoryController {
 	private final CategoryService categoryService;
 
-	@GetMapping("/all")
+	@GetMapping("category/getAll")
 	public ResponseEntity<ApiResponse> getAllCategories() {
 
 		try {
 			List<Category> allCategory = this.categoryService.getAllCategory();
+			if(allCategory.isEmpty())
+			{
+//				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//						.body(new ApiResponse("No data found ", null));
+				
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No data found", null));
+			}
 			return ResponseEntity.ok(new ApiResponse("Found sucess", allCategory));
 		} catch (Exception e) {
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body(new ApiResponse("Error ", HttpStatus.INTERNAL_SERVER_ERROR));
+					.body(new ApiResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
 
 		}
 

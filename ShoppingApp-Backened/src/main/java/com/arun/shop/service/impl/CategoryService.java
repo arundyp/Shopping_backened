@@ -1,19 +1,21 @@
 package com.arun.shop.service.impl;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.arun.shop.exception.ResourceNotFoundException;
 import com.arun.shop.model.Category;
 import com.arun.shop.repository.CategoryRepository;
 import com.arun.shop.service.IcategoryService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class CategoryService implements IcategoryService {
+	@Autowired
 	private CategoryRepository categoryRepo;
 
 	@Override

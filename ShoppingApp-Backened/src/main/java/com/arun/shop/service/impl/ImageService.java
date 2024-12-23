@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Service
 public class ImageService implements IimageService {
+	@Autowired
 	private ImageRepository imageRepo;
+	@Autowired
 	private ProductService productService;
 
 	@Override

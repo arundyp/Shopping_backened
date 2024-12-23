@@ -1,9 +1,13 @@
 package com.arun.shop.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.arun.shop.model.Image;
 
 public interface ImageRepository  extends JpaRepository<Image, Long>{
+
+	List<Image> findByProductId(long id);
 
 }

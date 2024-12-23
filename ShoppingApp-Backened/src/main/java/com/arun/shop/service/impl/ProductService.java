@@ -2,10 +2,16 @@ package com.arun.shop.service.impl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.arun.shop.DTO.ImageDTO;
+import com.arun.shop.DTO.ProductDto;
 import com.arun.shop.exception.ResourceNotFoundException;
+import com.arun.shop.model.Image;
 import com.arun.shop.model.Product;
+import com.arun.shop.repository.ImageRepository;
 import com.arun.shop.repository.productRepository;
 import com.arun.shop.service.IproductService;
 
@@ -14,9 +20,14 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Service
 public class ProductService implements IproductService {
 	@Autowired
 	private productRepository productRepository;
+	@Autowired
+	private ModelMapper mapper;
+	@Autowired
+	private ImageRepository imageRepository;
 
 	@Override
 	public Product addProduct(Product product) {
@@ -31,14 +42,14 @@ public class ProductService implements IproductService {
 	}
 
 	@Override
-	public Product getProductById(Long id) {
+	public Product getProductById(long id) {
 		Product product = this.productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product is not found"));
 		return product;
 	}
 
 	@Override
-	public void deleteProductById(Long id) {
+	public void deleteProductById(long id) {
 		Product product = this.productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product is not found"));
 		this.productRepository.delete(product);
@@ -95,6 +106,24 @@ public class ProductService implements IproductService {
 	public Long countProductsByBrandAndName(String brand, String name) {
 		long countByBrandAndName = this.productRepository.countByBrandAndName(brand, name);
 		return countByBrandAndName;
+	}
+
+	@Override
+	public List<ProductDto> getConvertedProductDto(List<Product> product) {
+		return product.stream().map(this::convertToDto).toList();
+
+	}
+
+	@Override
+	public ProductDto convertToDto(Product product) {
+
+		ProductDto productDto = this.mapper.map(product, ProductDto.class);
+		List<Image> images = this.imageRepository.findByProductId(product.getId());
+		List<ImageDTO> ImageDto = images.stream().map(image -> mapper.map(images, ImageDTO.class)).toList();
+		productDto.setImage(ImageDto);
+
+		return productDto;
+
 	}
 
 }

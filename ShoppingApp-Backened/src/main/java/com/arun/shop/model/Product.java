@@ -1,6 +1,5 @@
 package com.arun.shop.model;
 
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,7 +18,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Entity
 public class Product {
@@ -31,11 +30,27 @@ public class Product {
 	private String brand;
 	private BigDecimal price;
 	private Integer inventory;
-	@JoinColumn(name ="category_id" )
+	
+	
+	@JoinColumn(name = "category_id")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Category category;
-	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<Image> image;
 	
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Image> image;
+
+	public Product(long id, String name, String description, String brand, BigDecimal price, Integer inventory,
+			Category category, List<Image> image) {
+
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.brand = brand;
+		this.price = price;
+		this.inventory = inventory;
+		this.category = category;
+		this.image = image;
+	}
 
 }
